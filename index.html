@@ -252,6 +252,14 @@
     transition: transform 220ms ease;
   }
   .book:hover .cover { transform: rotate(-2deg) translateY(-4px); }
+  .cover img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .cover svg {
     position: absolute;
     inset: 0;
@@ -365,7 +373,7 @@
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="hero-copy">
       <h1 id="hero-title">David's Books <em>on one shelf.</em></h1>
-      <p class="lede">Four books by David, from digital alchemy to a guide on how to love. Pull one off the shelf and pick up a copy on Amazon.</p>
+      <p class="lede">Four books by David Burmeister, from digital alchemy to a guide on how to love. Pull one off the shelf and pick up a copy on Amazon.</p>
       <a class="btn" href="#shelf">Browse the books <span aria-hidden="true">↓</span></a>
     </div>
 
@@ -405,15 +413,8 @@
     </article>
 
     <article class="book" id="book-2">
-      <div class="cover c2" aria-hidden="true">
-        <svg viewBox="0 0 120 180" preserveAspectRatio="xMidYMid slice">
-          <g fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="1.2">
-            <path d="M34 18 V120"/>
-            <path d="M34 22 H90 V82 L62 70 L34 82"/>
-          </g>
-          <path d="M48 36 L62 50 L76 36 M62 50 V64" fill="none" stroke="currentColor" stroke-opacity=".7" stroke-width="1.6"/>
-        </svg>
-        <span class="ct">Under the Banner of Palantier</span>
+      <div class="cover c2">
+        <img src="covers/under-the-banner-of-palantier.png" alt="Cover of Under the Banner of Palantier by David Burmeister" width="274" height="436">
       </div>
       <div class="info">
         <span class="shelfmark">ASIN <b>B0HRR3WNTC</b></span>
