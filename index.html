@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Explore David's books and find your next great read."
+    >
+    <meta name="theme-color" content="#f8f6f0">
+    <title>David's Books — Stories worth keeping</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f8f6f0;
+        --ink: #232c26;
+        --muted: #73766c;
+        --green: #334d3c;
+        --orange: #bd6848;
+        --line: #e6e2d8;
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site-header,
+      main,
+      .site-footer {
+        width: min(1120px, calc(100% - 48px));
+        margin-inline: auto;
+      }
+
+      .site-header {
+        display: flex;
+        min-height: 82px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .wordmark {
+        color: var(--green);
+        font-family: var(--serif);
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-decoration: none;
+      }
+
+      .nav-link {
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-decoration: none;
+        transition: color 160ms ease;
+      }
+
+      .nav-link:hover,
+      .nav-link:focus-visible {
+        color: var(--orange);
+      }
+
+      .hero {
+        display: grid;
+        min-height: 460px;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+        gap: 48px;
+        padding-block: 74px;
+      }
+
+      .eyebrow {
+        margin: 0 0 19px;
+        color: var(--orange);
+        font-size: 0.73rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 610px;
+        margin-bottom: 20px;
+        font-family: var(--serif);
+        font-size: clamp(3.1rem, 7vw, 5.7rem);
+        font-weight: 400;
+        letter-spacing: -0.065em;
+        line-height: 0.99;
+      }
+
+      h1 span {
+        color: var(--green);
+        font-style: italic;
+      }
+
+      .hero-copy {
+        max-width: 420px;
+        margin-bottom: 29px;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.8;
+      }
+
+      .primary-link {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        gap: 17px;
+        padding: 0 20px;
+        border-radius: 4px;
+        background: var(--green);
+        color: #fff;
+        font-size: 0.87rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .primary-link:hover,
+      .primary-link:focus-visible {
+        transform: translateY(-2px);
+        background: #263d2e;
+      }
+
+      .primary-link span {
+        font-size: 1.1rem;
+      }
+
+      .hero-art {
+        position: relative;
+        display: grid;
+        min-height: 304px;
+        place-items: center;
+        overflow: hidden;
+        border-radius: 48% 48% 5px 5px;
+        background: #e8e4d8;
+      }
+
+      .sun {
+        position: absolute;
+        top: 37px;
+        right: 56px;
+        width: 79px;
+        height: 79px;
+        border-radius: 50%;
+        background: #d7a47b;
+      }
+
+      .horizon {
+        position: absolute;
+        right: -12%;
+        bottom: -96px;
+        left: -12%;
+        height: 206px;
+        transform: rotate(-9deg);
+        border-radius: 50% 50% 0 0;
+        background: #b7c1a8;
+      }
+
+      .book-stack {
+        position: relative;
+        z-index: 1;
+        width: 173px;
+        height: 224px;
+        transform: rotate(-7deg);
+        border: 1px solid rgb(255 255 255 / 28%);
+        border-radius: 3px 8px 8px 3px;
+        background: #536d59;
+        box-shadow: 15px 18px 30px rgb(46 57 43 / 20%);
+      }
+
+      .book-stack::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 13px;
+        width: 1px;
+        background: rgb(255 255 255 / 24%);
+        content: "";
+      }
+
+      .book-stack::after {
+        position: absolute;
+        inset: 12px;
+        border: 1px solid rgb(237 216 181 / 56%);
+        border-radius: 2px 6px 6px 2px;
+        content: "";
+      }
+
+      .book-cover-copy {
+        position: absolute;
+        z-index: 2;
+        inset: 47px 22px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #f5ead3;
+        text-align: center;
+      }
+
+      .book-cover-copy small {
+        margin-bottom: 14px;
+        font-size: 0.51rem;
+        letter-spacing: 0.2em;
+      }
+
+      .book-cover-copy strong {
+        font-family: var(--serif);
+        font-size: 1.45rem;
+        font-weight: 400;
+        line-height: 1.13;
+      }
+
+      .books-section {
+        padding: 51px 0 86px;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      .section-heading .eyebrow {
+        margin-bottom: 9px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        font-family: var(--serif);
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
+        font-weight: 400;
+        letter-spacing: -0.055em;
+      }
+
+      .section-note {
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 0.83rem;
+      }
+
+      .book-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .book-card {
+        min-width: 0;
+      }
+
+      .book-art {
+        position: relative;
+        display: grid;
+        height: 246px;
+        place-items: center;
+        overflow: hidden;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        background: #e9e3d7;
+      }
+
+      .book-art::before,
+      .book-art::after {
+        position: absolute;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        content: "";
+      }
+
+      .book-art::before {
+        width: 155px;
+        height: 155px;
+      }
+
+      .book-art::after {
+        width: 115px;
+        height: 115px;
+      }
+
+      .book-art__number {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        width: 94px;
+        height: 122px;
+        place-items: center;
+        border-radius: 2px 5px 5px 2px;
+        background: var(--cover);
+        box-shadow: 10px 12px 21px rgb(35 44 38 / 16%);
+        color: var(--cover-text, #fff8eb);
+        font-family: var(--serif);
+        font-size: 2rem;
+      }
+
+      .book-art__number::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 8px;
+        width: 1px;
+        background: rgb(255 255 255 / 35%);
+        content: "";
+      }
+
+      .book-art--one {
+        color: #b38458;
+        --cover: #526a54;
+      }
+
+      .book-art--two {
+        color: #a26d61;
+        background: #e9ddd3;
+        --cover: #a65f4c;
+      }
+
+      .book-art--three {
+        color: #627568;
+        background: #e1e5d9;
+        --cover: #42586b;
+      }
+
+      .book-art--four {
+        color: #bb9959;
+        background: #e9e2cd;
+        --cover: #b08a4d;
+        --cover-text: #fffaf0;
+      }
+
+      .book-number {
+        margin-bottom: 8px;
+        color: var(--orange);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        margin-bottom: 8px;
+        font-family: var(--serif);
+        font-size: 1.37rem;
+        font-weight: 400;
+        letter-spacing: -0.025em;
+      }
+
+      .book-description {
+        min-height: 48px;
+        margin-bottom: 17px;
+        color: var(--muted);
+        font-size: 0.81rem;
+        line-height: 1.6;
+      }
+
+      .amazon-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--green);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration-color: #b8c2b9;
+        text-underline-offset: 4px;
+        transition: color 160ms ease;
+      }
+
+      .amazon-link:hover,
+      .amazon-link:focus-visible {
+        color: var(--orange);
+      }
+
+      .site-footer {
+        display: flex;
+        min-height: 76px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      .footer-note {
+        text-align: right;
+      }
+
+      :focus-visible {
+        outline: 3px solid #bd6848;
+        outline-offset: 4px;
+      }
+
+      @media (max-width: 760px) {
+        .hero {
+          min-height: 0;
+          grid-template-columns: 1fr;
+          gap: 35px;
+          padding-block: 60px;
+        }
+
+        .hero-art {
+          min-height: 285px;
+        }
+
+        .book-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 30px 18px;
+        }
+
+        .book-art {
+          height: 230px;
+        }
+      }
+
+      @media (max-width: 460px) {
+        .site-header,
+        main,
+        .site-footer {
+          width: min(100% - 36px, 1120px);
+        }
+
+        .site-header {
+          min-height: 70px;
+        }
+
+        .hero {
+          padding-block: 50px;
+        }
+
+        .section-heading {
+          align-items: start;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .book-grid {
+          gap: 26px 13px;
+        }
+
+        .book-art {
+          height: 190px;
+          margin-bottom: 15px;
+        }
+
+        .book-description {
+          min-height: 68px;
+        }
+
+        .site-footer {
+          align-items: start;
+          flex-direction: column;
+          justify-content: center;
+          padding-block: 18px;
+        }
+
+        .footer-note {
+          text-align: left;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#" aria-label="David's Books home">David's Books</a>
+      <a class="nav-link" href="#books">The collection <span aria-hidden="true">↓</span></a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">A small collection, made to be read</p>
+          <h1 id="hero-title">Stories worth <span>keeping.</span></h1>
+          <p class="hero-copy">
+            Welcome to David's bookshelf. Browse the collection, find a new
+            favorite, and pick up a copy on Amazon.
+          </p>
+          <a class="primary-link" href="#books">
+            Explore the books <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="hero-art" role="img" aria-label="An illustrated book against a warm sunset">
+          <span class="sun" aria-hidden="true"></span>
+          <span class="horizon" aria-hidden="true"></span>
+          <div class="book-stack" aria-hidden="true">
+            <div class="book-cover-copy">
+              <small>DAVID'S BOOKS</small>
+              <strong>Stories<br>worth<br>keeping</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="books-section" id="books" aria-labelledby="books-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">The bookshelf</p>
+            <h2 id="books-title">Find your next read.</h2>
+          </div>
+          <p class="section-note">Four books. Your next favorite.</p>
+        </div>
+
+        <div class="book-grid">
+          <article class="book-card">
+            <div class="book-art book-art--one" aria-hidden="true">
+              <span class="book-art__number">01</span>
+            </div>
+            <p class="book-number">Book one</p>
+            <h3>Failed Experiment: Burmeister's Digital Alchemy</h3>
+            <p class="book-description">Add a short introduction to this book.</p>
+            <a class="amazon-link" href="https://www.amazon.com/dp/B0HLVKYBFH" target="_blank" rel="noopener noreferrer">
+              Find it on Amazon <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+
+          <article class="book-card">
+            <div class="book-art book-art--two" aria-hidden="true">
+              <span class="book-art__number">02</span>
+            </div>
+            <p class="book-number">Book two</p>
+            <h3>Your second book</h3>
+            <p class="book-description">Add a short introduction to this book.</p>
+            <a class="amazon-link" href="https://www.amazon.com/dp/REPLACE_WITH_BOOK_2_ASIN" target="_blank" rel="noopener noreferrer">
+              Find it on Amazon <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+
+          <article class="book-card">
+            <div class="book-art book-art--three" aria-hidden="true">
+              <span class="book-art__number">03</span>
+            </div>
+            <p class="book-number">Book three</p>
+            <h3>Your third book</h3>
+            <p class="book-description">Add a short introduction to this book.</p>
+            <a class="amazon-link" href="https://www.amazon.com/dp/REPLACE_WITH_BOOK_3_ASIN" target="_blank" rel="noopener noreferrer">
+              Find it on Amazon <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+
+          <article class="book-card">
+            <div class="book-art book-art--four" aria-hidden="true">
+              <span class="book-art__number">04</span>
+            </div>
+            <p class="book-number">Book four</p>
+            <h3>Your fourth book</h3>
+            <p class="book-description">Add a short introduction to this book.</p>
+            <a class="amazon-link" href="https://www.amazon.com/dp/REPLACE_WITH_BOOK_4_ASIN" target="_blank" rel="noopener noreferrer">
+              Find it on Amazon <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year">2026</span> David's Books</p>
+      <p class="footer-note">Thanks for supporting an independent author.</p>
+    </footer>
+  </body>
+</html>
